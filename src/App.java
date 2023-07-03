@@ -3,7 +3,6 @@ import java.util.List;
 
 import model.Cargo;
 import model.Funcionario;
-import model.FuncionarioTerceirizado;
 import model.Setor;
 import utils.AcmeUtils;
 import utils.Config;

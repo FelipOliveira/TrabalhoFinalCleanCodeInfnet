@@ -69,6 +69,6 @@ public class AcmeUtils {
                 break;
         }
         
-        System.out.println("salário de " + f.getNome() + " aumentou para R$" + f.getSalario());
+        System.out.println("salário de " + f.getNome() + " aumentou para R$" + f.getSalario() + "\n");
     }
 }
