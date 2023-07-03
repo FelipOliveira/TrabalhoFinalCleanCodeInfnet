@@ -36,36 +36,11 @@ public class App {
         );
 
         System.out.println(func1.getSalario());
-        reajusteSalarial(func1);
+        au.reajusteSalarial(func1);
 
         List<Funcionario> funcioanrios = List.of(func1);
         
         au.listarFuncionarios(funcioanrios);
     }
 
-    public static void reajusteSalarial(Funcionario f){
-        if (f.getClass() == FuncionarioTerceirizado.class) {
-            return;
-        }
-
-        switch(f.getCargo()){
-            case ESTAGIARIO:
-                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_ESTAGIARIO));
-                break;
-            case JUNIOR:
-                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_JUNIOR));
-                break;
-            case PLENO:
-                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_PLENO));
-                break;
-            case SENIOR:
-                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_SENIOR));
-                break;
-            default:
-                f.setSalario(f.getSalario().multiply(new BigDecimal(1)));
-                break;
-        }
-        
-        System.out.println("salário de " + f.getNome() + " aumentou para R$" + f.getSalario());
-    }
 }
