@@ -57,4 +57,13 @@ public class Funcionario {
         this.setor = setor;
     }
 
+    @Override
+    public String toString() {
+      return "Nome: " + this.nome + "\n" 
+        + "Endereço: " + this.endereco + "\n"
+        + "Salário atual: " + this.salario + "\n"
+        + "Setor: " + this.setor + "\n"
+        + "Cargo:" + this.cargo + "\n"
+        + "Telefone(s): " + this.telefones.toString() + "\n";
+    }
 }

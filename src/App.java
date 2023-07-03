@@ -1,18 +1,18 @@
 import java.math.BigDecimal;
 import java.util.List;
 
-import model.BuilderAcme;
 import model.Cargo;
 import model.Funcionario;
 import model.FuncionarioTerceirizado;
 import model.Setor;
+import utils.AcmeUtils;
 import utils.Config;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println(Config.BOOT_TEXT);
 
-        BuilderAcme ba = new BuilderAcme();
+        AcmeUtils au = new AcmeUtils();
 
         String func1_nome = "fulano";
         String func1_endereco = "rua dos bobos numero 0"; 
@@ -20,28 +20,27 @@ public class App {
         Setor func1_setor = Setor.BANCO_DE_DADOS;
         Cargo func1_cargo = Cargo.ESTAGIARIO;
         
-        String func1_telefone1 = "0001121221";
-        String func1_telefone2 = "1223243552";
-        String func1_telefone3 = "7270587405";
-
-        List<String> listaTelefones = ba.criarListaTelefones(
-            func1_telefone1,
-            func1_telefone2,
-            func1_telefone3
-        );
+        String[] listaTelefones = {
+            "0001121221",
+            "1223243552",
+            "7270587405"
+        };
         
-        Funcionario func1 = ba.novoFuncionario(
+        Funcionario func1 = au.criarFuncionario(
             func1_nome, 
             func1_endereco, 
             func1_salario, 
             func1_setor, 
             func1_cargo, 
-            listaTelefones
+            au.criarListaTelefones(listaTelefones)
         );
 
         System.out.println(func1.getSalario());
         reajusteSalarial(func1);
+
+        List<Funcionario> funcioanrios = List.of(func1);
         
+        au.listarFuncionarios(funcioanrios);
     }
 
     public static void reajusteSalarial(Funcionario f){

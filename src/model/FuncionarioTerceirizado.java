@@ -21,4 +21,16 @@ public class FuncionarioTerceirizado extends Funcionario{
     public LocalDate getTempoPermanencia() {
         return tempoPermanencia;
     }
+
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + "\n" 
+        + "Endereço: " + this.endereco + "\n"
+        + "Salário atual: " + this.salario + "\n"
+        + "Setor: " + this.setor + "\n"
+        + "Cargo:" + this.cargo + "\n"
+        + "Empresa contrada: " + this.empresaContratada + "\n"
+        + "Tempo de contrato: " + this.tempoPermanencia.toString() + "\n"
+        + "Telefone(s): " + this.telefones.toString() + "\n";
+    }
 }
