@@ -12,9 +12,9 @@ public class Funcionario {
     protected Setor setor;
     protected Cargo cargo;
 
-    public Funcionario(String nome, String endereco, BigDecimal salario, Setor setor, Cargo cargo, String... telefones){
+    public Funcionario(String nome, String endereco, BigDecimal salario, Setor setor, Cargo cargo, List<String> telefones){
         this.nome = nome;
-        this.telefones = List.of(telefones);
+        this.telefones = telefones;
         this.endereco = endereco;
         this.salario = salario;
         this.setor = setor;

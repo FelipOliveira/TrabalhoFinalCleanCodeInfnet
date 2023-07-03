@@ -1,70 +1,72 @@
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.List;
 
+import model.BuilderAcme;
 import model.Cargo;
 import model.Funcionario;
 import model.FuncionarioTerceirizado;
 import model.Setor;
 import utils.Config;
-import utils.Rh;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println(Config.BOOT_TEXT);
 
-        String telefone1 = "0001121221";
-        String telefone2 = "122324355a";
-        String telefone3 = "7270587405";
+        BuilderAcme ba = new BuilderAcme();
+
+        String func1_nome = "fulano";
+        String func1_endereco = "rua dos bobos numero 0"; 
+        BigDecimal func1_salario = new BigDecimal(2000);
+        Setor func1_setor = Setor.BANCO_DE_DADOS;
+        Cargo func1_cargo = Cargo.ESTAGIARIO;
         
-        Funcionario func1 = new Funcionario(
-            "fulano", 
-            "rua dos bobos numero 0", 
-            new BigDecimal(2000), 
-            Setor.BANCO_DE_DADOS, 
-            Cargo.ESTAGIARIO,
-            telefone1, telefone2
-        );
-        Funcionario func2 = new Funcionario(
-            "circadiano",
-            "rua dos bobos numero 1", 
-            new BigDecimal(2000), 
-            Setor.DEVOPS, 
-            Cargo.SENIOR,
-            ""
-        );
-        Funcionario func3 = new Funcionario(
-            "marciano", 
-            "rua dos bobos numero 2", 
-            new BigDecimal(2000), 
-            Setor.DESENVOLVIMENTO, 
-            Cargo.PLENO,
-            telefone3
-        );
+        String func1_telefone1 = "0001121221";
+        String func1_telefone2 = "1223243552";
+        String func1_telefone3 = "7270587405";
 
-        FuncionarioTerceirizado funcTerc1 = new FuncionarioTerceirizado(
-            "ciclano", 
-            "rua 001", 
-            new BigDecimal(2300), 
-            Setor.DESENVOLVIMENTO, 
-            Cargo.JUNIOR, 
-            "outra empresa SA", 
-            LocalDate.now().plusMonths(5),
-            telefone1
+        List<String> listaTelefones = ba.criarListaTelefones(
+            func1_telefone1,
+            func1_telefone2,
+            func1_telefone3
         );
-
-        FuncionarioTerceirizado funcTerc2 = new FuncionarioTerceirizado(
-            "beltrano",
-            "rua 002", 
-            new BigDecimal(2300), 
-            Setor.DEVOPS, 
-            Cargo.JUNIOR, 
-            "outra empresa SA", 
-            LocalDate.now().plusMonths(5),
-            telefone1, telefone2, telefone3
+        
+        Funcionario func1 = ba.novoFuncionario(
+            func1_nome, 
+            func1_endereco, 
+            func1_salario, 
+            func1_setor, 
+            func1_cargo, 
+            listaTelefones
         );
 
         System.out.println(func1.getSalario());
-        Rh.reajusteSalarial(func1);
+        reajusteSalarial(func1);
         
+    }
+
+    public static void reajusteSalarial(Funcionario f){
+        if (f.getClass() == FuncionarioTerceirizado.class) {
+            return;
+        }
+
+        switch(f.getCargo()){
+            case ESTAGIARIO:
+                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_ESTAGIARIO));
+                break;
+            case JUNIOR:
+                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_JUNIOR));
+                break;
+            case PLENO:
+                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_PLENO));
+                break;
+            case SENIOR:
+                f.setSalario(f.getSalario().multiply(Config.REAJUSTE_SENIOR));
+                break;
+            default:
+                f.setSalario(f.getSalario().multiply(new BigDecimal(1)));
+                break;
+        }
+        
+        System.out.println("salário de " + f.getNome() + " aumentou para R$" + f.getSalario());
     }
 }
